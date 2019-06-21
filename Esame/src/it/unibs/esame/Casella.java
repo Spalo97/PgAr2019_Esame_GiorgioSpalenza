@@ -9,6 +9,7 @@ public class Casella {
 	private ArrayList<Opzione> opzioni=new ArrayList<Opzione>();
 	private int costo;
 	private String tipo;
+	private int destinazione=-1;
 	
 	public Casella() {		
 	}
@@ -52,6 +53,12 @@ public class Casella {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
+
+	public int getDestinazione() {
+		return destinazione;
+	}
+
+	public void setDestinazione(int destinazione) {
+		this.destinazione = destinazione;
+	}	
 }

@@ -5,14 +5,64 @@
         File XML di testing per il modulo A2 - nucleo 3
         Il seguente documento è stato prodotto da Daniele Della Morte per lo Student Branch IEEE dell'Università degli Studi di Brescia.
     -->
-    <map size="8" title="mappa bella ma molto semplice">
+    <character statsnumber="4">
+        <defstat id="-1" name="Vita" initvalue="100" />
+        <defstat id="0" name="Intelligenza" initvalue="70" />
+        <defstat id="1" name="Coraggio" initvalue="90" />
+        <defstat id="2" name="Fame" initvalue="40" />
+    </character>
+    <events eventnumber="3">
+        <event id="0">
+            <description>
+                Compare un drago a pi-greco teste. Che fai?
+            </description>
+            <option statId="1" delta="-10">
+                Scappi dal drago.
+            </option>
+            <option statId="0" delta="20">
+                Applichi la funzione seno al drago.
+            </option>
+        </event>
+        <event id="1">
+            <description>
+                Ti cade una mela in testa.
+            </description>
+            <option statId="2" delta="-20">
+                La mangi.
+            </option>
+            <option statId="0" delta="-10">
+                La tagli a fette molto piccole e poi la butti via.
+            </option>
+        </event>
+        <event id="2">
+            <description>
+                Trovi una fetta di torta di colore fucsia.
+            </description>
+            <option statId="2" delta="-25">
+                La mangi.
+            </option>
+            <option statId="0" delta="2">
+                Ti allontani diffidente: potrebbe essere avvelenata.
+            </option>
+        </event>
+    </events>
+    
+    <map size="10" title="bellissima mappa con modulo d1">
         <cell id="0" type="empty">
-            <description>Benvenuto nella Partita Generica Ed Inutile.</description>
-            <option destination="1">Qui non hai molte scelte: fai il prossimo passo!</option>
+            <description>
+                Benvenuto nella Partita Generica Ed Inutile, ma con Statistiche!
+            </description>
+            <option destination="1">
+                Qui non hai molte scelte: fai il prossimo passo!
+            </option>
         </cell>
         <cell id="1" type="branch" options="3">
-            <description>Sei arrivato ad uno svincolo: congratulazioni!</description>
-            <option destination="2">Potremmo prendere questa via.</option>
+            <description>
+                Sei arrivato ad uno svincolo: congratulazioni!
+            </description>
+            <option destination="2">
+                Potremmo prendere questa via.
+            </option>
             <option destination="3">
                 Potremmo prendere quest'altra via (?)
             </option>
@@ -30,7 +80,7 @@
             <option destination="3">
                 Ti sei accorto di aver sbagliato via poco fa?
             </option>
-            <option destination="4">
+            <option destination="8">
                 Vediamo un po' cosa c'è in questo boschetto...
             </option>
         </cell>
@@ -49,7 +99,7 @@
             <option destination="5" lifepoints="1">
                 Entriamo nella caverna.
             </option>
-            <option destination="6" lifepoints="-10">
+            <option destination="9" lifepoints="-10">
                 Attraversiamo il fiume a nuoto, schivando i piranha.
             </option>
         </cell>
@@ -74,5 +124,7 @@
                 La strada ti porta alla via per la felicità: complimenti, ce l'hai fatta! Attenzione: anche il bosco in fiamme ti porterebbe qui, se non fosse in fiamme!
             </description>
         </cell>
+        <cell id="8" type="random" destination="4" />
+        <cell id="9" type="random" destination="6" />
     </map>
 </rpg>

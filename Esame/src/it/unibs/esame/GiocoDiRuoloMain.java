@@ -11,13 +11,23 @@ public class GiocoDiRuoloMain {
 			if(stato==true) {
 				Casella posizione=mappa.getPozioneAttuale();
 				while(!posizione.getTipo().equals("end") && giocatore.getVita()>0) {
+					if(posizione.getTipo().equals("effect")){
+						System.out.println("Attenzione, la prossima scelta porterà conseguenze...");
+					}
+					if(posizione.getTipo().equals("random")){
+						System.out.println("Attenzione, la prossima scelta porterà conseguenze...");
+						Casella evento=Supporto.getEventoRandom();
+						for(Opzione op:evento.getOpzioni()) {
+							op.setIdSuccessivo(evento.getDestinazione());
+						}
+					}
 					Opzione opzioneScelta=posizione.getOpzioni().get(mostraOpzioni(posizione,giocatore.getNome()));
 					int idNuovaPosizione=opzioneScelta.getIdSuccessivo();
-					if(opzioneScelta.getPuntiVita()>0)
-						System.out.println("Hai guadagnato "+opzioneScelta.getPuntiVita()+" punti vita");
-					else if(opzioneScelta.getPuntiVita()>0)
-						System.out.println("Hai perso "+opzioneScelta.getPuntiVita()+" punti vita");
-					giocatore.setVita(opzioneScelta.getPuntiVita());
+					if(opzioneScelta.getPunti()>0)
+						System.out.println("Hai guadagnato "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
+					else if(opzioneScelta.getPunti()<0)
+						System.out.println("Hai perso "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
+					giocatore.setStat(opzioneScelta.getStatId(),opzioneScelta.getPunti());
 					posizione=mappa.setPosizioneAttuale(idNuovaPosizione);
 					if(posizione==null) {
 						Exception e=new Exception("Sei finito in una città inesistente! Mappa Errata!");

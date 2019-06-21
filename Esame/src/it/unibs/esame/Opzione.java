@@ -4,12 +4,14 @@ public class Opzione {
 
 	private String testo;
 	private int idSuccessivo;
-	private int puntiVita;
+	private int punti;
+	private int statId;
 	
-	public Opzione(int idSuccessivo,int puntiVita,String testo) {
-		this.puntiVita=puntiVita;
+	public Opzione(int idSuccessivo,int puntiVita,String testo, int statId) {
+		this.punti=puntiVita;
 		this.idSuccessivo=idSuccessivo;
 		this.testo=testo;
+		this.statId=statId;
 	}
 
 	public String getTesto() {
@@ -20,7 +22,15 @@ public class Opzione {
 		return idSuccessivo;
 	}
 	
-	public int getPuntiVita() {
-		return this.puntiVita;
+	public int getPunti() {
+		return this.punti;
+	}
+	
+	public int getStatId() {
+		return statId;
+	}
+
+	public void setIdSuccessivo(int destinazione) {
+		this.idSuccessivo=destinazione;
 	}
 }
