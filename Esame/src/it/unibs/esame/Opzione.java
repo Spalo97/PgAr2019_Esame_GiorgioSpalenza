@@ -6,9 +6,10 @@ public class Opzione {
 	private int idSuccessivo;
 	private int puntiVita;
 	
-	public Opzione(int idSuccessivo,int puntiVita) {
+	public Opzione(int idSuccessivo,int puntiVita,String testo) {
 		this.puntiVita=puntiVita;
 		this.idSuccessivo=idSuccessivo;
+		this.testo=testo;
 	}
 
 	public String getTesto() {

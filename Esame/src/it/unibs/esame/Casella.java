@@ -1,10 +1,12 @@
 package it.unibs.esame;
 
+import java.util.ArrayList;
+
 public class Casella {
 
 	private int id;
 	private String testo;
-	private Opzione[] opzioni;
+	private ArrayList<Opzione> opzioni=new ArrayList<Opzione>();
 	private int costo;
 	private String tipo;
 	
@@ -27,16 +29,12 @@ public class Casella {
 		this.testo = testo;
 	}
 
-	public Opzione[] getCaselleSuccessive() {
+	public ArrayList<Opzione> getOpzioni() {
 		return opzioni;
 	}
 
-	public void setOpzioni(int n) {
-		this.opzioni=new Opzione[n];
-	}
-	
 	public void addOpzione(Opzione opzione) {
-		opzioni[opzioni.length]=opzione;
+		opzioni.add(opzione);
 	}
 
 	public int getCosto() {

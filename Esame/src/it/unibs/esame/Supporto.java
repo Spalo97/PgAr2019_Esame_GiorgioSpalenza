@@ -14,7 +14,7 @@ public class Supporto {
 	private static XMLInputFactory xmlif = null;
 	private static XMLStreamReader xmlr = null;
 	
-	private static String base = "Xml/1)base.xml";
+	private static String base = "Xml/1) base.xml";
 	
 	public Supporto() {
 		
@@ -23,13 +23,12 @@ public class Supporto {
 	 * Metodo che effettua un parsing del file Xml e crea oggetti di tipo
 	 * Casella, inserendoli in un ArrayList che poi viene ritornato.
 	 * @return caselle
+	 * @throws Exception 
 	 */
-	public static ArrayList<Casella> importaMappa(){
+	public static ArrayList<Casella> importaMappa() throws Exception{
 		ArrayList<Casella> caselle = new ArrayList<Casella>();
 		Casella casella;
 		Opzione opzione;
-		boolean description=false;
-		boolean option=false;
 		aperturaXml(base);
 		try {
 			while (xmlr.hasNext()) {
@@ -40,27 +39,25 @@ public class Supporto {
 						casella=new Casella();
 						casella.setId(Integer.parseInt(xmlr.getAttributeValue(0)));
 						casella.setTipo(xmlr.getAttributeValue(1));
-						if(xmlr.getAttributeCount()>2) 
-							casella.setOpzioni(Integer.parseInt(xmlr.getAttributeValue(2)));
 						caselle.add(casella);
 					}else if(xmlr.getLocalName().equals("description")) {
-						description=true;
+						caselle.get(caselle.size()-1).setTesto(xmlr.getElementText());
 					}else if(xmlr.getLocalName().equals("option")) {
-						option=true;
 						int destinazione=Integer.parseInt(xmlr.getAttributeValue(0));
 						int puntiVita=0;
 						if(xmlr.getAttributeCount()>1)
 							puntiVita=Integer.parseInt(xmlr.getAttributeValue(1));
-						opzione=new Opzione(destinazione,puntiVita);
+						opzione=new Opzione(destinazione,puntiVita,xmlr.getElementText());
+						caselle.get(caselle.size()-1).addOpzione(opzione);
+					}else {
+						if(!xmlr.getLocalName().equals("rpg") && !xmlr.getLocalName().equals("map")) {
+							Exception e=new Exception("Tag non valido");
+							throw e;
+						}
 					}
-				case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
-					System.out.println("END-Tag " + xmlr.getLocalName()); break;
-					case XMLStreamConstants.COMMENT:
-					System.out.println("// commento " + xmlr.getText()); break; // commento: ne stampa il contenuto
-				case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
-					if (xmlr.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
-						System.out.println("-> " + xmlr.getText());
-					break;
+				case XMLStreamConstants.END_ELEMENT: break;
+				case XMLStreamConstants.COMMENT: break;
+				case XMLStreamConstants.CHARACTERS:break;
 				}
 				xmlr.next();
 			}
