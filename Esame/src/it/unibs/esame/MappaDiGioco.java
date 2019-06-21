@@ -26,7 +26,12 @@ public class MappaDiGioco {
 		return posizioneAttuale;
 	}
 	
-	public void setPosizioneAttuale(Casella nuovaPosizione) {
-		this.posizioneAttuale=nuovaPosizione;
+	public Casella setPosizioneAttuale(int idNuovaPosizione) {
+		for(Casella casella:percorso) {
+			if(casella.getId()==idNuovaPosizione) {
+				return this.posizioneAttuale=casella;
+			}
+		}
+		return null;
 	}
 }
