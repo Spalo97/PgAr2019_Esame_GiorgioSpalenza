@@ -1,5 +1,9 @@
 package it.unibs.esame;
-
+/**
+ * Classe per la gestione delle singole statistiche del giocatore
+ * @author giorgio
+ *
+ */
 public class Statistica {
 	
 	private int id;

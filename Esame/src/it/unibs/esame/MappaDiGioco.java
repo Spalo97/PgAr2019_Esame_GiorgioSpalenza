@@ -1,7 +1,13 @@
 package it.unibs.esame;
 
 import java.util.ArrayList;
-
+/**
+ * Classe che rappresenta la mamma del gioco, contiene il perocorso (formato da una lista di Casella)
+ * e la posizione attuale del giocatore.
+ * 
+ * @author giorgio
+ *
+ */
 public class MappaDiGioco {
 	 
 	private ArrayList<Casella> percorso=new ArrayList<Casella>();

@@ -1,5 +1,9 @@
 package it.unibs.esame;
-
+/**
+ * Questa classe serve per raggruppare tutte le variabili che scaturiscono dalle possibili scelte dell'utente o del sistema
+ * @author giorgio
+ *
+ */
 public class Opzione {
 
 	private String testo;

@@ -1,7 +1,13 @@
 package it.unibs.esame;
 
 import java.util.ArrayList;
-
+/**
+ * Classe che rappresenta i punti dove l'utente o il sistema compie una scelta di percorso.
+ * Al suo interno troviamo tutte le opzioni che abbiamo a questo punto per andare avanti.
+ *  * 
+ * @author giorgio
+ *
+ */
 public class Casella {
 
 	private int id;

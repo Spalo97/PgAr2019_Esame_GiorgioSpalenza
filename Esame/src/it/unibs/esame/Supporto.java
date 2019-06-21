@@ -11,7 +11,12 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
+/**
+ * Questa è una classe di supporto, serve per non incasinare il resto del codice.
+ * Si occupa dell'import dell'Xml e della gestione eventi random
+ * @author giorgio
+ *
+ */
 public class Supporto {
 
 	private final static String ERRORE_MINIMO= "Attenzione: e' richiesto un valore maggiore o uguale a ";
@@ -19,24 +24,24 @@ public class Supporto {
 	private final static String ERRORE_FORMATO = "Attenzione: il dato inserito non e' nel formato corretto";
 	private final static String ERRORE_STRINGA_VUOTA= "Attenzione: devi inserire un nome";
 	
-	private static XMLInputFactory xmlif = null;
+	private static XMLInputFactory xmlif = null;	
 	private static XMLStreamReader xmlr = null;
 
-	private static String base = "Xml/2) D1.xml";
+	private static String file = "Xml/1) base.xml";	
 	
 	private static Scanner lettore = creaScanner();
 	
-	private static ArrayList<Statistica> statistiche=new ArrayList<Statistica>(); 
+	private static ArrayList<Statistica> statistiche=new ArrayList<Statistica>(); //salva le statistiche importate dall'XML che poi seriranno per settare quelle del giocatore e prelevare i nomi
 	
-	private static ArrayList<Casella> eventiRandom=new ArrayList<Casella>();
+	private static ArrayList<Casella> eventiRandom=new ArrayList<Casella>(); //salva gli eventi random
 	public Supporto() {
 		
 	}
 	/**
 	 * Metodo che effettua un parsing del file Xml e crea oggetti di tipo
-	 * Casella, inserendoli in un ArrayList che poi viene ritornato.
-	 * @return caselle
-	 * @throws Exception 
+	 * Casella, inserendoli in un ArrayList che poi viene ritornato. Gestisce in oltre ogni tipo di evento, compreso il random
+	 * @return caselle lista di tutti i punti in cui l'utente o il sistema effetua una scelta di percorso
+	 * @throws Exception in caso trovi un tag non valido
 	 */
 	public static ArrayList<Casella> importaMappa() throws Exception{
 		ArrayList<Casella> caselle = new ArrayList<Casella>();
@@ -44,7 +49,7 @@ public class Supporto {
 		Casella evento;
 		boolean ev=false;
 		Opzione opzione;
-		aperturaXml(base);
+		aperturaXml(file);
 		try {
 			while (xmlr.hasNext()) {
 				switch (xmlr.getEventType()) { 
@@ -156,7 +161,11 @@ public class Supporto {
 		}
 		return caselle;	
 	}
-		
+	
+	/**
+	 * Metodo per l'apertura del file Xml e per l'inizializzazione del reader
+	 * @param fileSelezionato
+	 */
 	private static void aperturaXml(String fileSelezionato) {
 		try {
 			xmlif = XMLInputFactory.newInstance();
@@ -166,7 +175,16 @@ public class Supporto {
 			System.out.println(e.getMessage());
 		}
 	}
-		
+	
+	/**
+	 * Metodo preso dal package del Prof. Serina  e adattato secondo le richeiste del programma.
+	 * Serve a leggere le scelte fatte dall'utente, facendo in modo che inserisca una risposta adeguata.
+	 * 
+	 * @param messaggio Messaggio da stampare a video
+	 * @param minimo	Numero intero minimo accettabile dal programma
+	 * @param massimo	Numero Intero massimo accettabile dal programma
+	 * @return
+	 */
 	public static int leggiIntero (String messaggio, int minimo, int massimo){
 		boolean finito = false;
 		int valoreLetto = 0;
@@ -189,12 +207,23 @@ public class Supporto {
 		} while (!finito);
 		return valoreLetto;
 		}
+	/**
+	 * Metodo preso dal package del Prof. Serina  e adattato secondo le richeiste del programma.
+	 * Crea uno scanner per leggere i dati da input
+	 * @return lo scanner creato
+	 */	
 	private static Scanner creaScanner (){
 		Scanner creato = new Scanner(System.in);
 		creato.useDelimiter(System.getProperty("line.separator"));
 		return creato;
 	}
 	
+	/**
+	 * Metodo preso dal package del Prof. Serina  e adattato secondo le richeiste del programma.
+	 * Serve a leggere il nome del giocatore. Si assicura che non sia una stringa vuota.
+	 * @param messaggio Messaggio da stampare a video
+	 * @return Stringa letta
+	 */
 	public static String leggiStringa (String messaggio){
 		boolean finito=false;
 		String lettura = null;
@@ -209,15 +238,31 @@ public class Supporto {
 		} while (!finito);	   
 		return lettura;
 	}
+	/**
+	 * Restituisce una delle caselle evento "random" in modo casuale
+	 * @return
+	 */
 	public static Casella getEventoRandom() {
 		Random random = new Random();
 		return eventiRandom.get(random.nextInt(eventiRandom.size()));
 	}
+	/**
+	 * @param statId Id statistica desiderata
+	 * @return	Nome Statistica desiderata
+	 */
 	public static String getNomeStatistica(int statId) {
 		for(Statistica stat:statistiche) {
 			if(stat.getId()==statId)
 				return stat.getNome();
 		}
 		return null;
+	}
+	
+	/**
+	 * Serve a settare le statistiche del giocatore
+	 * @return Tutte le statistiche
+	 */
+	public static ArrayList<Statistica> getStatistiche() {
+		return statistiche;
 	}
 }

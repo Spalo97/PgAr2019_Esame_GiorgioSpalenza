@@ -1,13 +1,27 @@
 package it.unibs.esame;
-
+/**
+ * Classe main del programma Gioco Di Ruolo- Si occupa dello scorrimento del programma, richiamando le altre classi quando gli servono
+ * @author giorgio
+ *
+ */
 public class GiocoDiRuoloMain {
+	
+	/**
+	 * Main del programma, fa scorrere le istuzioni e lancia un'Exception in caso qualcosa vada storto. 
+	 * Caso più probabile il file Xml non è formattato correttamente.
+	 * @param args
+	 */
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		MappaDiGioco mappa=new MappaDiGioco();
 		Giocatore giocatore=new Giocatore(Supporto.leggiStringa("Benvenuto giocatore, inserisci il tuo nome: "));
+
 		try {
 			boolean stato=mappa.setPercorso(Supporto.importaMappa());
+			giocatore.addStat(Supporto.getStatistiche());
+			giocatore.printStat();
 			if(stato==true) {
 				Casella posizione=mappa.getPozioneAttuale();
 				while(!posizione.getTipo().equals("end") && giocatore.getVita()>0) {
@@ -18,7 +32,9 @@ public class GiocoDiRuoloMain {
 						System.out.println("Attenzione, la prossima scelta porterà conseguenze...");
 						Casella evento=Supporto.getEventoRandom();
 						for(Opzione op:evento.getOpzioni()) {
-							op.setIdSuccessivo(evento.getDestinazione());
+							op.setIdSuccessivo(posizione.getDestinazione());
+							posizione.addOpzione(op);
+							posizione.setTesto(evento.getTesto());
 						}
 					}
 					Opzione opzioneScelta=posizione.getOpzioni().get(mostraOpzioni(posizione,giocatore.getNome()));
@@ -47,7 +63,13 @@ public class GiocoDiRuoloMain {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Mostra al giocatore le opzioni che ha disponibili, o procede del caso ne abbia solamente una.
+	 * 
+	 * @param posizione Posizione attuale del giocatore all'interno del percorso sulla mappa
+	 * @param nomeGiocatore Serve per chiedergli cosa vuole fare
+	 * @return l'opzione scelta dal giocatore. Non può arrivare a ritornare -1 grazie al metodo Supporto.leggiIntero();
+	 */
 	public static int mostraOpzioni(Casella posizione,String nomeGiocatore) {
 		if(posizione.getOpzioni().size()>0) {
 			int opzioneSelezionata = -1;
@@ -57,6 +79,7 @@ public class GiocoDiRuoloMain {
 				System.out.println(posizione.getOpzioni().get(0).getTesto());
 				opzioneSelezionata=0;
 			}else {
+				System.out.println(posizione.getTesto());
 				System.out.println("Scegliere tra le seguenti opzioni:");
 				for(int i=0;i<posizione.getOpzioni().size();i++) {
 					System.out.println("["+i+"] - "+posizione.getOpzioni().get(i).getTesto());
