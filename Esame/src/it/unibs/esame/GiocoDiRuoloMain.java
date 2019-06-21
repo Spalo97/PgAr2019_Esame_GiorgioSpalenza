@@ -17,9 +17,9 @@ public class GiocoDiRuoloMain {
 		
 		MappaDiGioco mappa=new MappaDiGioco();
 		Giocatore giocatore=new Giocatore(Supporto.leggiStringa("Benvenuto giocatore, inserisci il tuo nome: "));
-
+		int scelta=sceltaMappa();
 		try {
-			boolean stato=mappa.setPercorso(Supporto.importaMappa());
+			boolean stato=mappa.setPercorso(Supporto.importaMappa(scelta));
 			giocatore.addStat(Supporto.getStatistiche());
 			giocatore.printStat();
 			if(stato==true) {
@@ -39,10 +39,17 @@ public class GiocoDiRuoloMain {
 					}
 					Opzione opzioneScelta=posizione.getOpzioni().get(mostraOpzioni(posizione,giocatore.getNome()));
 					int idNuovaPosizione=opzioneScelta.getIdSuccessivo();
-					if(opzioneScelta.getPunti()>0)
-						System.out.println("Hai guadagnato "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
-					else if(opzioneScelta.getPunti()<0)
-						System.out.println("Hai perso "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
+					if(Supporto.getNomeStatistica(opzioneScelta.getStatId())!=null) {
+						if(opzioneScelta.getPunti()>0)
+							System.out.println("Hai guadagnato "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
+						else if(opzioneScelta.getPunti()<0)
+							System.out.println("Hai perso "+opzioneScelta.getPunti()+" punti "+Supporto.getNomeStatistica(opzioneScelta.getStatId()));
+					}else {
+						if(opzioneScelta.getPunti()>0)
+							System.out.println("Hai guadagnato "+opzioneScelta.getPunti()+" punti vita");
+						else if(opzioneScelta.getPunti()<0)
+							System.out.println("Hai perso "+opzioneScelta.getPunti()+" punti vita");
+					}
 					giocatore.setStat(opzioneScelta.getStatId(),opzioneScelta.getPunti());
 					posizione=mappa.setPosizioneAttuale(idNuovaPosizione);
 					if(posizione==null) {
@@ -50,10 +57,14 @@ public class GiocoDiRuoloMain {
 						throw e;
 					}
 				}
-				if(giocatore.getVita()>0)
+				if(giocatore.getVita()>0) {
 					System.out.println(posizione.getTesto());
-				else
+					System.out.println("Ecco le tue statistiche");
+					giocatore.printStat();
+				}
+				else {
 					System.out.println("Sei morto! Riprova.");
+				}
 			}else {
 				Exception e=new Exception("Inserire una mappa con delle caselle");
 				throw e;
@@ -90,5 +101,14 @@ public class GiocoDiRuoloMain {
 		}else {
 			return -1;
 		}
+	}
+	/**
+	 * Selezione fra le mappe disponibili
+	 * @return int che servira a support per aprire la mappa giusta
+	 */
+	public static int sceltaMappa() {
+		System.out.println("[0] 1) base.xml");
+		System.out.println("[1] 2) D1.xml");
+		return Supporto.leggiIntero("Quale mappa si vuole utilizzare?",0,1);
 	}
 }

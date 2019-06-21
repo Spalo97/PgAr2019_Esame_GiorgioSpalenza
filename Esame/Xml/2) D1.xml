@@ -115,13 +115,13 @@
             <option destination="7" lifepoints="1">
                 Segui la strada.
             </option>
-            <option destination="7" lifepoints="-100">
+            <option destination="0" lifepoints="-100">
                 Attraversa il bosco in fiamme.
             </option>
         </cell>
         <cell id="7" type="end">
             <description>
-                La strada ti porta alla via per la felicità: complimenti, ce l'hai fatta! Attenzione: anche il bosco in fiamme ti porterebbe qui, se non fosse in fiamme!
+                La strada ti porta alla via per la felicità: complimenti, ce l'hai fatta!
             </description>
         </cell>
         <cell id="8" type="random" destination="4" />

@@ -27,7 +27,8 @@ public class Supporto {
 	private static XMLInputFactory xmlif = null;	
 	private static XMLStreamReader xmlr = null;
 
-	private static String file = "Xml/1) base.xml";	
+	private static String base = "Xml/1) base.xml";
+	private static String D1 = "Xml/2) D1.xml";
 	
 	private static Scanner lettore = creaScanner();
 	
@@ -43,13 +44,16 @@ public class Supporto {
 	 * @return caselle lista di tutti i punti in cui l'utente o il sistema effetua una scelta di percorso
 	 * @throws Exception in caso trovi un tag non valido
 	 */
-	public static ArrayList<Casella> importaMappa() throws Exception{
+	public static ArrayList<Casella> importaMappa(int scelta) throws Exception{
 		ArrayList<Casella> caselle = new ArrayList<Casella>();
 		Casella casella;
 		Casella evento;
 		boolean ev=false;
 		Opzione opzione;
-		aperturaXml(file);
+		if(scelta==0)
+			aperturaXml(base);
+		else
+			aperturaXml(D1);
 		try {
 			while (xmlr.hasNext()) {
 				switch (xmlr.getEventType()) { 
