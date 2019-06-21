@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rpg>
+    <!--
+        Programma Arnaldo 2019 - Esame
+        File XML di testing per il modulo A2 - nucleo 3
+        Il seguente documento è stato prodotto da Daniele Della Morte per lo Student Branch IEEE dell'Università degli Studi di Brescia.
+    -->
+    <map size="8" title="mappa bella ma molto semplice">
+        <cell id="0" type="empty">
+            <description>
+                Benvenuto nella Partita Generica Ed Inutile.
+            </description>
+            <option destination="1">
+                Qui non hai molte scelte: fai il prossimo passo!
+            </option>
+        </cell>
+        <cell id="1" type="branch" options="3">
+            <description>
+                Sei arrivato ad uno svincolo: congratulazioni!
+            </description>
+            <option destination="2">
+                Potremmo prendere questa via.
+            </option>
+            <option destination="3">
+                Potremmo prendere quest'altra via (?)
+            </option>
+            <option destination="1">
+                Che fai, resti fermo?
+            </option>
+        </cell>
+        <cell id="2" type="branch" options="3">
+            <description>
+                Molto bene: un altro svincolo. Che facciamo?
+            </description>
+            <option destination="0">
+                Dai, ricominciamo, è stato divertente!
+            </option>
+            <option destination="3">
+                Ti sei accorto di aver sbagliato via poco fa?
+            </option>
+            <option destination="4">
+                Vediamo un po' cosa c'è in questo boschetto...
+            </option>
+        </cell>
+        <cell id="3" type="empty">
+            <description>
+                Ok, qui c'è una strada che potremmo seguire.
+            </description>
+            <option destination="4">
+                La strada ci porta verso un boschetto.
+            </option>
+        </cell>
+        <cell id="4" type="effect" options="2">
+            <description>
+                Eccoci qua: il boschetto. Ci sono una caverna e un fiume.
+            </description>
+            <option destination="5" lifepoints="1">
+                Entriamo nella caverna.
+            </option>
+            <option destination="6" lifepoints="-10">
+                Attraversiamo il fiume a nuoto, schivando i piranha.
+            </option>
+        </cell>
+        <cell id="5" type="end">
+            <description>
+                Entri nella caverna: c'è un orso. Hai appena guadagnato un punto vita, ma l'orso ti mangia. Ti aspettavi un happy ending? Comunque hai vinto, sei arrivato alla fine.
+            </description>
+        </cell>
+        <cell id="6" type="effect" options="2">
+            <description>
+                Hai attraversato il fiume: ci sono una strada e un bosco in fiamme.
+            </description>
+            <option destination="7" lifepoints="1">
+                Segui la strada.
+            </option>
+            <option destination="7" lifepoints="-100">
+                Attraversa il bosco in fiamme.
+            </option>
+        </cell>
+        <cell id="7" type="end">
+            <description>
+                La strada ti porta alla via per la felicità: complimenti, ce l'hai fatta! Attenzione: anche il bosco in fiamme ti porterebbe qui, se non fosse in fiamme!
+            </description>
+        </cell>
+    </map>
+</rpg>
